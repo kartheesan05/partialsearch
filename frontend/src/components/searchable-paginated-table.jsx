@@ -20,19 +20,35 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getUsers } from "@/lib/actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 export function SearchablePaginatedTableComponent() {
   const [data, setData] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [totalCount, setTotalCount] = React.useState(0);
+  const [error, setError] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
   const itemsPerPage = 100;
 
   const fetchData = React.useCallback(async () => {
-    const result = await getUsers(currentPage, itemsPerPage, searchTerm);
-    setData(result.users);
-    setTotalCount(result.totalCount);
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users?page=${currentPage}&perPage=${itemsPerPage}&searchTerm=${searchTerm}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const result = await response.json();
+      setData(result.users);
+      setTotalCount(result.totalCount);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("An error occurred while fetching data. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   }, [currentPage, searchTerm]);
 
   React.useEffect(() => {
@@ -50,7 +66,7 @@ export function SearchablePaginatedTableComponent() {
     <div className="flex justify-center items-start min-h-screen p-4">
       <Card className="w-full max-w-7xl h-[95vh]">
         <CardHeader>
-          <CardTitle>User Directory (100 records per page)</CardTitle>
+          <CardTitle>User Data</CardTitle>
         </CardHeader>
         <CardContent className="h-[calc(100%-5rem)] flex flex-col">
           <div className="mb-4">
@@ -60,9 +76,20 @@ export function SearchablePaginatedTableComponent() {
               onChange={handleSearch}
             />
           </div>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
           <div className="relative flex-grow overflow-hidden">
             <div className="overflow-x-auto h-full">
-              {data.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center py-20">
+                  <p className="text-gray-500 dark:text-gray-400 text-lg">Loading...</p>
+                </div>
+              ) : data.length > 0 ? (
                 <Table className="w-full min-w-[800px]">
                   <TableHeader className="sticky top-0 bg-white dark:bg-gray-950 z-10">
                     <TableRow>
@@ -86,9 +113,6 @@ export function SearchablePaginatedTableComponent() {
                     <TableRow>
                       <TableCell colSpan={4} className="h-20"></TableCell>
                     </TableRow>
-                    {/* <TableRow>
-                      <TableCell colSpan={4} className="h-20"></TableCell>
-                    </TableRow> */}
                   </TableBody>
                 </Table>
               ) : (
