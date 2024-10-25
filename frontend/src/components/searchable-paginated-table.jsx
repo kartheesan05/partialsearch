@@ -67,9 +67,9 @@ export default function SearchablePaginatedTableComponent() {
   };
 
   return (
-    <div className="flex justify-center items-start min-h-screen p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900 dark:to-purple-950">
-      <Card className="w-full max-w-7xl h-[95vh] shadow-lg border-purple-200 dark:border-purple-800">
-        <CardHeader className="bg-purple-500 text-white rounded-t-lg">
+    <div className="flex justify-center items-start min-h-screen p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-950">
+      <Card className="w-full max-w-7xl h-[95vh] shadow-lg border-blue-200 dark:border-blue-800">
+        <CardHeader className="bg-blue-500 text-white rounded-t-lg">
           <CardTitle className="text-2xl font-bold">User Data</CardTitle>
         </CardHeader>
         <CardContent className="h-[calc(100%-5rem)] flex flex-col">
@@ -78,10 +78,10 @@ export default function SearchablePaginatedTableComponent() {
               placeholder="Search..."
               value={searchTerm}
               onChange={handleSearch}
-              className="pl-10 border-purple-300 focus:border-purple-500 focus:ring-purple-500 dark:border-purple-700 dark:focus:border-purple-500"
+              className="pl-10 border-blue-300 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-700 dark:focus:border-blue-500"
             />
             <Search
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-400"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
               size={18}
             />
           </div>
@@ -99,28 +99,28 @@ export default function SearchablePaginatedTableComponent() {
               </AlertDescription>
             </Alert>
           )}
-          <div className="relative flex-grow overflow-hidden rounded-lg border border-purple-200 dark:border-purple-800">
+          <div className="relative flex-grow overflow-hidden rounded-lg border border-blue-200 dark:border-blue-800">
             <div className="overflow-x-auto h-full">
               {isLoading ? (
                 <div className="text-center py-20">
-                  <p className="text-purple-600 dark:text-purple-400 text-lg">
+                  <p className="text-blue-600 dark:text-blue-400 text-lg">
                     Loading...
                   </p>
                 </div>
               ) : data.length > 0 ? (
                 <Table className="w-full min-w-[800px]">
-                  <TableHeader className="sticky top-0 bg-purple-100 dark:bg-purple-900 z-10">
+                  <TableHeader className="sticky top-0 bg-blue-100 dark:bg-blue-900 z-10">
                     <TableRow>
-                      <TableHead className="w-16 text-center text-purple-700 dark:text-purple-300">
+                      <TableHead className="w-16 text-center text-blue-700 dark:text-blue-300">
                         S.No
                       </TableHead>
-                      <TableHead className="text-purple-700 dark:text-purple-300">
+                      <TableHead className="text-blue-700 dark:text-blue-300">
                         First Name
                       </TableHead>
-                      <TableHead className="text-purple-700 dark:text-purple-300">
+                      <TableHead className="text-blue-700 dark:text-blue-300">
                         Second Name
                       </TableHead>
-                      <TableHead className="text-purple-700 dark:text-purple-300">
+                      <TableHead className="text-blue-700 dark:text-blue-300">
                         Email
                       </TableHead>
                     </TableRow>
@@ -129,9 +129,9 @@ export default function SearchablePaginatedTableComponent() {
                     {data.map((item, index) => (
                       <TableRow
                         key={item.id}
-                        className="hover:bg-purple-50 dark:hover:bg-purple-800/50 transition-colors"
+                        className="hover:bg-blue-50 dark:hover:bg-blue-800/50 transition-colors"
                       >
-                        <TableCell className="text-center font-medium text-purple-600 dark:text-purple-400">
+                        <TableCell className="text-center font-medium text-blue-600 dark:text-blue-400">
                           {(currentPage - 1) * itemsPerPage + index + 1}
                         </TableCell>
                         <TableCell>{item.first_name}</TableCell>
@@ -146,14 +146,14 @@ export default function SearchablePaginatedTableComponent() {
                 </Table>
               ) : (
                 <div className="text-center py-20">
-                  <p className="text-purple-600 dark:text-purple-400 text-lg">
+                  <p className="text-blue-600 dark:text-blue-400 text-lg">
                     {searchTerm ? "No results found" : "No records available"}
                   </p>
                 </div>
               )}
             </div>
             {totalCount > 0 && (
-              <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-950 p-4 border-t border-purple-200 dark:border-purple-800">
+              <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-950 p-4 border-t border-blue-200 dark:border-blue-800">
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
@@ -162,7 +162,7 @@ export default function SearchablePaginatedTableComponent() {
                           setCurrentPage((prev) => Math.max(prev - 1, 1))
                         }
                         disabled={currentPage === 1}
-                        className="text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                        className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                       />
                     </PaginationItem>
                     {totalPages <= 5 ? (
@@ -173,8 +173,8 @@ export default function SearchablePaginatedTableComponent() {
                             isActive={currentPage === i + 1}
                             className={
                               currentPage === i + 1
-                                ? "bg-purple-500 text-white"
-                                : "text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                                ? "bg-blue-500 text-white"
+                                : "text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                             }
                           >
                             {i + 1}
@@ -189,21 +189,21 @@ export default function SearchablePaginatedTableComponent() {
                             isActive={currentPage === 1}
                             className={
                               currentPage === 1
-                                ? "bg-purple-500 text-white"
-                                : "text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                                ? "bg-blue-500 text-white"
+                                : "text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                             }
                           >
                             1
                           </PaginationLink>
                         </PaginationItem>
                         {currentPage > 3 && (
-                          <PaginationEllipsis className="text-purple-600 dark:text-purple-400" />
+                          <PaginationEllipsis className="text-blue-600 dark:text-blue-400" />
                         )}
                         {currentPage > 2 && currentPage < totalPages - 1 && (
                           <PaginationItem>
                             <PaginationLink
                               onClick={() => setCurrentPage(currentPage - 1)}
-                              className="text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                              className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                             >
                               {currentPage - 1}
                             </PaginationLink>
@@ -214,7 +214,7 @@ export default function SearchablePaginatedTableComponent() {
                             <PaginationLink
                               onClick={() => setCurrentPage(currentPage)}
                               isActive
-                              className="bg-purple-500 text-white"
+                              className="bg-blue-500 text-white"
                             >
                               {currentPage}
                             </PaginationLink>
@@ -224,14 +224,14 @@ export default function SearchablePaginatedTableComponent() {
                           <PaginationItem>
                             <PaginationLink
                               onClick={() => setCurrentPage(currentPage + 1)}
-                              className="text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                              className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                             >
                               {currentPage + 1}
                             </PaginationLink>
                           </PaginationItem>
                         )}
                         {currentPage < totalPages - 2 && (
-                          <PaginationEllipsis className="text-purple-600 dark:text-purple-400" />
+                          <PaginationEllipsis className="text-blue-600 dark:text-blue-400" />
                         )}
                         <PaginationItem>
                           <PaginationLink
@@ -239,8 +239,8 @@ export default function SearchablePaginatedTableComponent() {
                             isActive={currentPage === totalPages}
                             className={
                               currentPage === totalPages
-                                ? "bg-purple-500 text-white"
-                                : "text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                                ? "bg-blue-500 text-white"
+                                : "text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                             }
                           >
                             {totalPages}
@@ -256,7 +256,7 @@ export default function SearchablePaginatedTableComponent() {
                           )
                         }
                         disabled={currentPage === totalPages}
-                        className="text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-800"
+                        className="text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800"
                       />
                     </PaginationItem>
                   </PaginationContent>
