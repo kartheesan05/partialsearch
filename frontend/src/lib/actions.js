@@ -15,7 +15,6 @@ export async function login(state, formData) {
   });
 
   if (!validatedFields.success) {
-    console.log("invalid fields");
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };

@@ -26,7 +26,6 @@ export function useUserData(itemsPerPage) {
       setData(result.users);
       setTotalCount(result.totalCount);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setError(
         error.message || "An error occurred while fetching data. Please try again later."
       );
