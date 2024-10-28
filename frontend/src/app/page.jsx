@@ -1,10 +1,10 @@
 
-import SearchablePaginatedTableComponent from "@/components/searchable-paginated-table";
+import PaginatedTable from "@/components/paginated-table";
 
 export default function Home() {
   return (
     <>
-      <SearchablePaginatedTableComponent />
+      <PaginatedTable />
     </>
   );
 }
