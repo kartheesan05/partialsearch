@@ -12,13 +12,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Update CORS configuration to allow credentials from any origin
+// Add these middleware before your routes
+app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(express.json());
+
+// Update CORS configuration
 app.use(cors({ 
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json());
-app.use(cookieParser());
 
 // Protect the users endpoint with authentication
 app.get("/api/users", authenticateSession, async (req, res) => {
@@ -44,7 +47,6 @@ app.get("/api/users", authenticateSession, async (req, res) => {
       totalCount: Number(count),
     });
   } catch (error) {
-    console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

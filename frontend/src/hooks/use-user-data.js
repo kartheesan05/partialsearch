@@ -10,10 +10,17 @@ export function useUserData(itemsPerPage) {
     setIsLoading(true);
     setError(null);
     try {
+      const sessionCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('session='))
+        ?.split('=')[1];
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users?page=${currentPage}&perPage=${itemsPerPage}&searchTerm=${searchTerm}`,
         {
-          credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${sessionCookie}`
+          }
         }
       );
       if (!response.ok) {

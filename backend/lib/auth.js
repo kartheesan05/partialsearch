@@ -15,13 +15,15 @@ async function verifySession(token) {
 }
 
 const authenticateSession = async (req, res, next) => {
-  const sessionCookie = req.cookies?.session;
+  const authHeader = req.headers.authorization;
   
-  if (!sessionCookie) {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: "Unauthorized - No session found" });
   }
 
-  const payload = await verifySession(sessionCookie);
+  const token = authHeader.split(' ')[1];
+  const payload = await verifySession(token);
+  
   if (!payload) {
     return res.status(401).json({ error: "Unauthorized - Invalid session" });
   }

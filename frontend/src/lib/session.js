@@ -27,13 +27,13 @@ export async function decrypt(session) {
 export async function createSession({ email }) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ email, expiresAt });
-
+   
   (await cookies()).set("session", session, {
     // httpOnly: true,
-    // secure: true,
+    secure: process.env.NODE_ENV === 'production', // Only use secure in production
     expires: expiresAt,
-    sameSite: "lax",
-    path: "/",
+    sameSite: 'lax',
+    path: '/',
   });
 }
 

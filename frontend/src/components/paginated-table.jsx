@@ -67,9 +67,7 @@ export default function PaginatedTable() {
             <div className="overflow-x-auto h-full">
               {isLoading ? (
                 <div className="text-center py-20">
-                  <p className="text-blue-600 dark:text-blue-400 text-lg">
-                    Loading...
-                  </p>
+                  <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent dark:border-blue-400 dark:border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
                 </div>
               ) : data.length > 0 ? (
                 <TableView

@@ -35,7 +35,9 @@ export default function LoginPage() {
   const [state, formAction] = useActionState(login, {});
 
   const handleSubmit = async (formData) => {
-    await formAction(formData);
+    await formAction(formData, {
+      credentials: 'include' // Add this to include cookies in the request
+    });
   };
 
   return (
@@ -47,8 +49,7 @@ export default function LoginPage() {
           </CardTitle>
           <CardDescription className="text-center">
             Enter your email and password to login to your account
-            <br />
-            (Hint: email: user@user.com, password: test1234)
+            <span className="block">(Hint: email: user@user.com, password: test1234)</span>
           </CardDescription>
         </CardHeader>
         <form action={handleSubmit}>
