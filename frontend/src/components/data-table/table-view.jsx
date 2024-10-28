@@ -10,18 +10,18 @@ import {
 export function TableView({ data, currentPage, itemsPerPage }) {
   return (
     <Table className="w-full min-w-[800px]">
-      <TableHeader className="sticky top-0 bg-blue-100 dark:bg-blue-900 z-10">
+      <TableHeader className="sticky top-0 bg-blue-50 dark:bg-blue-900/50 z-10">
         <TableRow>
-          <TableHead className="w-16 text-center text-blue-700 dark:text-blue-300">
+          <TableHead className="w-16 text-center text-blue-800 dark:text-blue-300">
             S.No
           </TableHead>
-          <TableHead className="text-blue-700 dark:text-blue-300">
+          <TableHead className="text-blue-800 dark:text-blue-300">
             First Name
           </TableHead>
-          <TableHead className="text-blue-700 dark:text-blue-300">
+          <TableHead className="text-blue-800 dark:text-blue-300">
             Second Name
           </TableHead>
-          <TableHead className="text-blue-700 dark:text-blue-300">
+          <TableHead className="text-blue-800 dark:text-blue-300">
             Email
           </TableHead>
         </TableRow>
@@ -30,9 +30,9 @@ export function TableView({ data, currentPage, itemsPerPage }) {
         {data.map((item, index) => (
           <TableRow
             key={item.id}
-            className="hover:bg-blue-50 dark:hover:bg-blue-800/50 transition-colors"
+            className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
           >
-            <TableCell className="text-center font-medium text-blue-600 dark:text-blue-400">
+            <TableCell className="text-center font-medium text-blue-800 dark:text-blue-400">
               {(currentPage - 1) * itemsPerPage + index + 1}
             </TableCell>
             <TableCell>{item.first_name}</TableCell>
