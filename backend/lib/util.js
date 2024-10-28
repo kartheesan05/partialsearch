@@ -1,4 +1,4 @@
-export function buildUserQuery(searchTerm, perPage, offset) {
+function buildUserQuery(searchTerm, perPage, offset) {
   let queryText = `
     SELECT id, first_name, second_name, email
     FROM users
@@ -21,7 +21,7 @@ export function buildUserQuery(searchTerm, perPage, offset) {
   return { queryText, queryParams };
 }
 
-export function buildUserCountQuery(searchTerm) {
+function buildUserCountQuery(searchTerm) {
   let countQueryText = `
     SELECT COUNT(*) as count
     FROM users
@@ -39,3 +39,7 @@ export function buildUserCountQuery(searchTerm) {
   return { countQueryText, countQueryParams };
 }
 
+module.exports = {
+  buildUserQuery,
+  buildUserCountQuery
+};

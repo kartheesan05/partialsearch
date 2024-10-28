@@ -1,8 +1,10 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { db } from "./lib/db.js";
-import { buildUserQuery, buildUserCountQuery } from "./lib/util.js";
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const { db } = require("./lib/db.js");
+const { buildUserQuery, buildUserCountQuery } = require("./lib/util.js");
+const { authenticateSession } = require("./lib/auth.js");
 
 // Load environment variables
 dotenv.config();
@@ -10,10 +12,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors()); // Allow CORS from all origins
+// Update CORS configuration to allow credentials from any origin
+app.use(cors({ 
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true 
+}));
 app.use(express.json());
+app.use(cookieParser());
 
-app.get("/api/users", async (req, res) => {
+// Protect the users endpoint with authentication
+app.get("/api/users", authenticateSession, async (req, res) => {
   try {
     const { page = 1, perPage = 100, searchTerm = "" } = req.query;
     const offset = (page - 1) * perPage;

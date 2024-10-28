@@ -37,9 +37,15 @@ export default function SearchablePaginatedTableComponent() {
     setError(null);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users?page=${currentPage}&perPage=${itemsPerPage}&searchTerm=${searchTerm}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users?page=${currentPage}&perPage=${itemsPerPage}&searchTerm=${searchTerm}`,
+        {
+          credentials: 'include',
+        }
       );
       if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Unauthorized - Please log in");
+        }
         throw new Error("Failed to fetch data");
       }
       const result = await response.json();
@@ -48,7 +54,7 @@ export default function SearchablePaginatedTableComponent() {
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(
-        "An error occurred while fetching data. Please try again later."
+        error.message || "An error occurred while fetching data. Please try again later."
       );
     } finally {
       setIsLoading(false);

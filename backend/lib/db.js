@@ -1,5 +1,5 @@
-import pg from 'pg';
-import dotenv from 'dotenv';
+const pg = require('pg');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -11,6 +11,8 @@ const pool = new Pool({
   idleTimeoutMillis: 0,
 });
 
-export const db = {
-  query: (text, params) => pool.query(text, params),
+module.exports = {
+  db: {
+    query: (text, params) => pool.query(text, params),
+  }
 };
